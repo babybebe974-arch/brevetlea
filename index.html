@@ -1,0 +1,1171 @@
+bash
+
+cat /mnt/user-data/outputs/BrevetLea.html
+Output
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BrevetLéa — Révision Brevet Maths 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Nunito:wght@400;600;700;900&family=Fira+Code:wght@500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{background:#0a0e1a;color:#f0f4ff;font-family:'Nunito',sans-serif;min-height:100vh}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#1f2937;border-radius:3px}</style>
+</head>
+<body>
+<div id="root"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0e1a"><div style="text-align:center"><div style="font-size:48px;margin-bottom:10px">🌺</div><div style="color:#6b7280;font-size:13px;font-family:sans-serif">Chargement de Léa...</div></div></div></div>
+<script type="text/babel" data-presets="react">
+
+// ═══════════════════════════════════════════════════════════════
+// BANQUE — 90 questions + COURS complets par chapitre
+// ═══════════════════════════════════════════════════════════════
+
+// ── COURS PAS À PAS — affiché si notion non maîtrisée ─────────
+const COURS = {
+  nombres: {
+    titre: "Nombres & Calculs",
+    etapes: [
+      "📌 Règle des signes : (−)×(−)=(+) · (−)×(+)=(−) · (+)×(+)=(+)",
+      "📌 Priorités : parenthèses d'abord, puis × et ÷, puis + et −",
+      "📌 Notation scientifique : a×10ⁿ avec 1 ≤ a < 10. Ex: 4700 = 4,7×10³",
+      "📌 PGCD : décomposer en facteurs premiers, prendre les facteurs communs au plus petit exposant",
+      "✏️ Exemple : (−3)×(−5)+2 = 15+2 = 17 · et 6000 = 6×10³",
+      "📝 À noter : les puissances de 2 : 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2¹⁰=1024",
+    ],
+    remediation: {q:"Calculer : (−2) × (−5) + 3", opts:["13","−13","7","−7"], ans:0, notion:"(−)×(−)=(+) → 10+3=13."}
+  },
+  fractions: {
+    titre: "Fractions",
+    etapes: [
+      "📌 Simplifier : diviser numérateur ET dénominateur par leur PGCD",
+      "📌 Additionner : mettre au même dénominateur (LCD), puis additionner les numérateurs",
+      "📌 Multiplier : numérateur × numérateur, dénominateur × dénominateur",
+      "📌 Diviser par une fraction : multiplier par son inverse. Ex: ÷(2/3) = ×(3/2)",
+      "✏️ Exemple : 2/3 + 1/4 = 8/12 + 3/12 = 11/12",
+      "📝 À noter : 0,5=1/2 · 0,25=1/4 · 0,75=3/4 · 0,1=1/10 · 0,125=1/8",
+    ],
+    remediation: {q:"Calculer : 1/2 + 1/3", opts:["5/6","2/5","2/6","1/6"], ans:0, notion:"LCD=6 → 3/6+2/6=5/6."}
+  },
+  puissances: {
+    titre: "Puissances & Racines",
+    etapes: [
+      "📌 aⁿ × aᵐ = aⁿ⁺ᵐ (même base → additionner les exposants)",
+      "📌 (aⁿ)ᵐ = aⁿˣᵐ · aⁿ ÷ aᵐ = aⁿ⁻ᵐ",
+      "📌 a⁻ⁿ = 1/aⁿ · a⁰ = 1",
+      "📌 √(a×b) = √a × √b. Pour simplifier √75 : chercher un carré parfait. 75=25×3 → √75=5√3",
+      "✏️ Exemple : 2³×2⁴ = 2⁷ = 128 · et 3⁻² = 1/9",
+      "📝 Carrés à connaître : 1,4,9,16,25,36,49,64,81,100,121,144,169,196,225",
+    ],
+    remediation: {q:"Simplifier : 2⁴ × 2³", opts:["2⁷","2¹²","4⁷","2⁶"], ans:0, notion:"Même base → additionner : 4+3=7 → 2⁷."}
+  },
+  algebre: {
+    titre: "Algèbre & Équations",
+    etapes: [
+      "📌 Distributivité : a(b+c) = ab+ac. Toujours multiplier CHAQUE terme.",
+      "📌 Identités remarquables : (a+b)²=a²+2ab+b² · (a−b)²=a²−2ab+b² · (a+b)(a−b)=a²−b²",
+      "📌 Résoudre ax+b=c : isoler x en faisant les mêmes opérations des deux côtés",
+      "📌 Factoriser : chercher le facteur commun, ou utiliser les identités remarquables",
+      "✏️ Exemple : (x+3)²= x²+6x+9 · et 4x²−9=(2x−3)(2x+3)",
+      "📝 Méthode équation : simplifier → isoler le terme en x → diviser",
+    ],
+    remediation: {q:"Développer : 2(x + 5)", opts:["2x+10","2x+5","x+10","2x+7"], ans:0, notion:"Distributivité : 2×x + 2×5 = 2x+10."}
+  },
+  geometrie: {
+    titre: "Géométrie — Aires & Volumes",
+    etapes: [
+      "📌 Triangle : Aire = (base × hauteur) ÷ 2",
+      "📌 Disque : Aire = π×r² · Périmètre = 2×π×r",
+      "📌 Cube : Volume = a³ · Pavé droit : V = L×l×h",
+      "📌 Cylindre : V = π×r²×h · Cône : V = (1/3)×π×r²×h",
+      "✏️ Exemple : Triangle base=6, h=4 → A=6×4÷2=12cm²",
+      "📝 À noter : pour une sphère V=(4/3)πr³ · Aire sphère=4πr²",
+    ],
+    remediation: {q:"Aire d'un rectangle 5cm × 3cm", opts:["15 cm²","16 cm²","8 cm²","25 cm²"], ans:0, notion:"Aire rectangle = L×l = 5×3 = 15 cm²."}
+  },
+  pythagore: {
+    titre: "Théorème de Pythagore",
+    etapes: [
+      "📌 Dans un triangle RECTANGLE : a²+b²=c² (c=hypoténuse, côté le plus long)",
+      "📌 L'hypoténuse est TOUJOURS en face de l'angle droit",
+      "📌 Réciproque : si a²+b²=c² alors le triangle EST rectangle",
+      "📌 Pour trouver une cathète : a²=c²−b² → a=√(c²−b²)",
+      "✏️ Exemple : a=6, b=8 → c=√(36+64)=√100=10",
+      "📝 Triangles classiques à connaître : 3-4-5 · 5-12-13 · 6-8-10 · 8-15-17",
+    ],
+    remediation: {q:"Cathètes 6 et 8. Hypoténuse = ?", opts:["10","14","√28","9"], ans:0, notion:"6²+8²=36+64=100 → √100=10."}
+  },
+  trigo: {
+    titre: "Trigonométrie",
+    etapes: [
+      "📌 Dans un triangle rectangle avec angle α :",
+      "   sin(α) = côté opposé ÷ hypoténuse",
+      "   cos(α) = côté adjacent ÷ hypoténuse",
+      "   tan(α) = côté opposé ÷ côté adjacent",
+      "📌 Moyen mnémotechnique : SOH-CAH-TOA",
+      "📌 Valeurs à connaître : sin30°=1/2 · cos30°=√3/2 · tan30°=1/√3",
+      "   sin45°=cos45°=√2/2 · sin60°=√3/2 · cos60°=1/2 · tan45°=1",
+      "✏️ Exemple : hyp=10, angle=30° → opposé=10×sin30°=10×0,5=5",
+      "📝 Relation fondamentale : sin²(α)+cos²(α)=1 (toujours !)",
+    ],
+    remediation: {q:"sin(90°) = ?", opts:["1","0","1/2","√2/2"], ans:0, notion:"sin(90°)=1. Le côté opposé = l'hypoténuse quand l'angle est 90°."}
+  },
+  fonctions: {
+    titre: "Fonctions & Proportionnalité",
+    etapes: [
+      "📌 Fonction affine : f(x)=ax+b · a=pente (inclinaison) · b=ordonnée à l'origine",
+      "📌 Pour calculer f(x) : remplacer x par la valeur. Ex: f(3) = 2×3+1 = 7",
+      "📌 Zéro d'une fonction : valeur de x pour laquelle f(x)=0",
+      "📌 Taux d'évolution : (valeur finale − valeur initiale) ÷ valeur initiale × 100",
+      "📌 Évolutions successives : multiplier les coefficients multiplicateurs",
+      "✏️ Exemple : −20% puis −15% → 0,8×0,85=0,68 → −32% au total",
+      "📝 Pente d'une droite : (y₂−y₁)÷(x₂−x₁) entre deux points",
+    ],
+    remediation: {q:"f(x)=3x−2. f(3) = ?", opts:["7","11","6","−2"], ans:0, notion:"f(3)=3×3−2=9−2=7."}
+  },
+  stats: {
+    titre: "Statistiques & Probabilités",
+    etapes: [
+      "📌 Moyenne : somme de toutes les valeurs ÷ nombre de valeurs",
+      "📌 Médiane : valeur centrale quand les données sont ORDONNÉES",
+      "   Si n pair : médiane = moyenne des 2 valeurs centrales",
+      "📌 Probabilité : P(événement) = nombre de cas favorables ÷ nombre de cas possibles",
+      "📌 0 ≤ P ≤ 1 · P=0 impossible · P=1 certain",
+      "📌 P(A∪B) = P(A)+P(B)−P(A∩B)",
+      "✏️ Exemple : médiane de 3,5,7,9,11 → valeur du milieu = 7",
+      "📝 Événements indépendants : P(A et B) = P(A) × P(B)",
+    ],
+    remediation: {q:"Moyenne de 4, 6, 8, 10", opts:["7","6","8","9"], ans:0, notion:"Somme=28 ; 28÷4=7."}
+  },
+};
+
+// ── BANQUE DE QUESTIONS ────────────────────────────────────────
+const BANK = [
+// AUTOMATISMES
+{id:"a01",type:"auto",ch:"nombres",    q:"Calculer : (−4) × (−3) + (−2)",             opts:["10","14","−14","−10"],       ans:0, notion:"(−)×(−)=(+) → 12−2=10.", piege:null},
+{id:"a02",type:"auto",ch:"nombres",    q:"Calculer : 15 × 8 − 4 × 6",                opts:["96","80","144","72"],         ans:0, notion:"× avant − : 120−24=96.", piege:null},
+{id:"a03",type:"auto",ch:"nombres",    q:"PGCD de 24 et 36",                          opts:["12","6","4","8"],             ans:0, notion:"24=2³×3 ; 36=2²×3² → PGCD=12.", piege:null},
+{id:"a04",type:"auto",ch:"nombres",    q:"Écrire en notation scientifique : 0,00047", opts:["4,7×10⁻⁴","4,7×10⁻³","47×10⁻⁵","4,7×10⁴"],ans:0, notion:"On décale de 4 rangs → 4,7×10⁻⁴.", piege:null},
+{id:"a05",type:"auto",ch:"nombres",    q:"Calculer : 2¹⁰",                            opts:["1024","512","2048","256"],    ans:0, notion:"2¹⁰=1024. À connaître par cœur !", piege:null},
+{id:"a06",type:"auto",ch:"fractions",  q:"Simplifier : 36/48",                        opts:["3/4","2/3","6/8","4/5"],      ans:0, notion:"PGCD(36,48)=12 → 3/4.", piege:2},
+{id:"a07",type:"auto",ch:"fractions",  q:"Calculer : 2/3 + 1/4",                      opts:["11/12","3/7","8/12","1/2"],   ans:0, notion:"LCD=12 → 8/12+3/12=11/12.", piege:null},
+{id:"a08",type:"auto",ch:"fractions",  q:"Calculer : 5 ÷ (1/3)",                      opts:["15","5/3","3/5","8"],         ans:0, notion:"÷ fraction = × inverse : 5×3=15.", piege:null},
+{id:"a09",type:"auto",ch:"fractions",  q:"Calculer : (2/3)³",                         opts:["8/27","6/9","4/9","2/9"],     ans:0, notion:"(a/b)³=a³/b³ → 8/27.", piege:null},
+{id:"a10",type:"auto",ch:"fractions",  q:"Fraction irréductible de 0,375",            opts:["3/8","3/5","37/100","1/3"],   ans:0, notion:"375/1000 ÷ 125 = 3/8.", piege:null},
+{id:"a11",type:"auto",ch:"puissances", q:"Calculer : 3² + 4²",                        opts:["25","49","14","30"],          ans:0, notion:"9+16=25. Ne pas calculer (3+4)² !", piege:1},
+{id:"a12",type:"auto",ch:"puissances", q:"Simplifier : 10³ × 10²",                   opts:["10⁵","10⁶","20⁵","100⁵"],    ans:0, notion:"Même base → additionner : 10⁵.", piege:null},
+{id:"a13",type:"auto",ch:"puissances", q:"Calculer : 5⁻²",                            opts:["1/25","−25","1/10","25"],     ans:0, notion:"a⁻ⁿ=1/aⁿ → 5⁻²=1/25.", piege:null},
+{id:"a14",type:"auto",ch:"puissances", q:"Simplifier : √75",                          opts:["5√3","3√5","15√3","25√3"],    ans:0, notion:"75=25×3 → √75=5√3.", piege:null},
+{id:"a15",type:"auto",ch:"puissances", q:"Calculer : (2³)²",                          opts:["64","32","12","36"],          ans:0, notion:"(aⁿ)ᵐ=aⁿˣᵐ → 2⁶=64.", piege:null},
+{id:"a16",type:"auto",ch:"algebre",    q:"Développer : 3(x + 4)",                     opts:["3x+12","3x+4","x+12","3x+7"],ans:0, notion:"Distributivité : 3x+12.", piege:null},
+{id:"a17",type:"auto",ch:"algebre",    q:"Résoudre : 2x + 5 = 13",                   opts:["x=4","x=3","x=9","x=6"],     ans:0, notion:"2x=8 → x=4.", piege:null},
+{id:"a18",type:"auto",ch:"algebre",    q:"Factoriser : 6x + 9",                       opts:["3(2x+3)","6(x+3)","3(3x+2)","2(3x+4)"],ans:0, notion:"Facteur commun 3 → 3(2x+3).", piege:null},
+{id:"a19",type:"auto",ch:"algebre",    q:"Identité : (a+b)² = ?",                     opts:["a²+2ab+b²","a²+b²","a²−2ab+b²","2a+2b"],ans:0, notion:"Ne pas oublier le 2ab !", piege:1},
+{id:"a20",type:"auto",ch:"algebre",    q:"Résoudre : 3x − 7 = 11",                   opts:["x=6","x=4","x=18","x=8"],    ans:0, notion:"3x=18 → x=6.", piege:null},
+{id:"a21",type:"auto",ch:"geometrie",  q:"Aire d'un triangle base 8 cm, hauteur 5 cm",opts:["20 cm²","40 cm²","13 cm²","25 cm²"],ans:0, notion:"A=(b×h)/2=20 cm².", piege:1},
+{id:"a22",type:"auto",ch:"geometrie",  q:"Volume d'un cube d'arête 4 cm",             opts:["64 cm³","48 cm³","16 cm³","32 cm³"],ans:0, notion:"V=a³=64 cm³.", piege:null},
+{id:"a23",type:"auto",ch:"geometrie",  q:"Aire d'un disque de rayon 5 cm",            opts:["25π cm²","10π cm²","50π cm²","15π cm²"],ans:0, notion:"A=πr²=25π cm².", piege:null},
+{id:"a24",type:"auto",ch:"pythagore",  q:"Cathètes 3 et 4. Hypoténuse = ?",          opts:["5","7","√7","6"],             ans:0, notion:"3²+4²=25 → c=5. Triangle 3-4-5 !", piege:null},
+{id:"a25",type:"auto",ch:"pythagore",  q:"Cathètes 5 et 12. Hypoténuse = ?",         opts:["13","17","11","√119"],        ans:0, notion:"25+144=169 → c=13. Triangle 5-12-13 !", piege:null},
+{id:"a26",type:"auto",ch:"trigo",      q:"sin(30°) = ?",                              opts:["1/2","√3/2","√2/2","1"],      ans:0, notion:"Valeur remarquable : sin 30°=1/2.", piege:1},
+{id:"a27",type:"auto",ch:"trigo",      q:"cos(60°) = ?",                              opts:["1/2","√3/2","√2/2","0"],      ans:0, notion:"cos 60°=1/2. Même que sin 30° !", piege:1},
+{id:"a28",type:"auto",ch:"trigo",      q:"tan(45°) = ?",                              opts:["1","√2","√3","1/2"],          ans:0, notion:"tan 45°=sin/cos=1.", piege:null},
+{id:"a29",type:"auto",ch:"trigo",      q:"sin²(α) + cos²(α) = ?",                    opts:["1","0","2","sin(2α)"],        ans:0, notion:"Relation fondamentale — toujours vraie !", piege:null},
+{id:"a30",type:"auto",ch:"fonctions",  q:"f(x)=2x+3. f(4) = ?",                      opts:["11","10","14","8"],           ans:0, notion:"f(4)=2×4+3=8+3=11.", piege:null},
+{id:"a31",type:"auto",ch:"fonctions",  q:"Pente de la droite y=−3x+5",               opts:["−3","5","3","−5"],            ans:0, notion:"Forme y=ax+b : a est la pente.", piege:1},
+{id:"a32",type:"auto",ch:"fonctions",  q:"f(x)=x². f(−3) = ?",                       opts:["9","−9","6","−6"],            ans:0, notion:"(−3)²=9. Carré d'un négatif = positif !", piege:1},
+{id:"a33",type:"auto",ch:"fonctions",  q:"Taux d'évolution de 80 à 100",             opts:["25%","20%","80%","15%"],      ans:0, notion:"(100−80)/80×100=25%.", piege:1},
+{id:"a34",type:"auto",ch:"stats",      q:"Moyenne de : 8, 12, 10, 6, 4",             opts:["8","9","10","7"],             ans:0, notion:"Somme=40 ; 40÷5=8.", piege:null},
+{id:"a35",type:"auto",ch:"stats",      q:"Médiane de : 2, 5, 7, 9, 11",              opts:["7","5","9","6,8"],            ans:0, notion:"Valeur centrale (rang 3) = 7.", piege:null},
+{id:"a36",type:"auto",ch:"stats",      q:"3 billes rouges, 7 bleues. P(rouge) = ?",  opts:["3/10","7/10","1/3","3/7"],    ans:0, notion:"P=favorables/total=3/10.", piege:null},
+// PONTS
+{id:"p01",type:"pont",ch:"nombres",    q:"360 = 2³ × ? × 5",                         opts:["3²","3","6","9"],             ans:0, notion:"360=8×45=2³×9×5=2³×3²×5.", piege:null},
+{id:"p02",type:"pont",ch:"fractions",  q:"Résoudre : x/3 + 1/2 = 5/6",              opts:["x=1","x=2","x=1/2","x=3"],   ans:0, notion:"x/3=5/6−3/6=2/6=1/3 → x=1.", piege:null},
+{id:"p03",type:"pont",ch:"puissances", q:"Un triangle a les côtés 5,12 et 13. Rectangle ?",opts:["Oui, 5²+12²=13²","Non","On ne sait pas","Oui, 5+12>13"],ans:0, notion:"Réciproque Pythagore : 25+144=169 ✓", piege:3},
+{id:"p04",type:"pont",ch:"algebre",    q:"Factoriser : 4x² − 9",                     opts:["(2x−3)(2x+3)","(4x−9)(x+1)","(2x−3)²","(x−3)(x+3)"],ans:0, notion:"a²−b²=(a−b)(a+b). a=2x, b=3.", piege:2},
+{id:"p05",type:"pont",ch:"geometrie",  q:"Diagonale d'un rectangle 6×8",             opts:["10","14","9","7"],            ans:0, notion:"Pythagore : √(36+64)=√100=10.", piege:null},
+{id:"p06",type:"pont",ch:"pythagore",  q:"ABC rectangle en B. AB=6, BC=8. AC = ?",   opts:["10","14","√28","9"],          ans:0, notion:"6²+8²=100 → AC=10.", piege:null},
+{id:"p07",type:"pont",ch:"trigo",      q:"ABC rectangle en B, AB=5, BC=12. tan(A)=?",opts:["12/5","5/12","5/13","12/13"],ans:0, notion:"tan=opposé/adjacent=BC/AB=12/5.", piege:1},
+{id:"p08",type:"pont",ch:"fonctions",  q:"f(x)=2x²−3. f(−2) = ?",                   opts:["5","−3","1","11"],            ans:0, notion:"f(−2)=2×4−3=8−3=5.", piege:null},
+{id:"p09",type:"pont",ch:"stats",      q:"P(A∪B) si P(A)=0,4 P(B)=0,3 P(A∩B)=0,1", opts:["0,6","0,7","0,5","1,0"],     ans:0, notion:"P(A∪B)=P(A)+P(B)−P(A∩B)=0,6.", piege:1},
+{id:"p10",type:"pont",ch:"algebre",    q:"Résoudre : x² − 5x + 6 = 0",              opts:["x=2 ou 3","x=1 ou 6","x=−2 ou −3","x=5"],ans:0, notion:"(x−2)(x−3)=0 → x=2 ou x=3.", piege:null},
+{id:"p11",type:"pont",ch:"trigo",      q:"hyp=10, angle A=30°. Côté opposé = ?",     opts:["5","5√3","10√3","2"],         ans:0, notion:"opposé=hyp×sin(30°)=10×0,5=5.", piege:1},
+{id:"p12",type:"pont",ch:"fonctions",  q:"2 augmentations de 10%. Taux global ?",    opts:["21%","20%","22%","11%"],      ans:0, notion:"1,1×1,1=1,21 → +21%.", piege:1},
+{id:"p13",type:"pont",ch:"puissances", q:"Calculer : 4^(3/2)",                       opts:["8","6","16","12"],            ans:0, notion:"4^(3/2)=(√4)³=2³=8.", piege:null},
+{id:"p14",type:"pont",ch:"geometrie",  q:"Aire latérale cylindre r=3cm, h=5cm",      opts:["30π cm²","15π cm²","9π cm²","45π cm²"],ans:0, notion:"A=2πrh=2π×3×5=30π cm².", piege:null},
+{id:"p15",type:"pont",ch:"stats",      q:"Médiane de 20 valeurs : entre quels rangs ?",opts:["10e et 11e","9e et 10e","11e et 12e","10e seul"],ans:0, notion:"Série paire : médiane = moy des rangs n/2 et n/2+1.", piege:null},
+{id:"p16",type:"pont",ch:"nombres",    q:"PPCM de 8 et 12",                          opts:["24","48","4","16"],           ans:0, notion:"8=2³ ; 12=2²×3 → PPCM=2³×3=24.", piege:null},
+{id:"p17",type:"pont",ch:"algebre",    q:"Résoudre : 5(x−2) = 3(x+4)",              opts:["x=11","x=7","x=−1","x=3"],   ans:0, notion:"5x−10=3x+12 → 2x=22 → x=11.", piege:null},
+{id:"p18",type:"pont",ch:"fractions",  q:"Calculer : (3/4 − 1/3) × 12",             opts:["5","4","3","6"],              ans:0, notion:"9/12−4/12=5/12 ; 5/12×12=5.", piege:null},
+// TRANSFERT
+{id:"t01",type:"transfert",ch:"pythagore",q:"Échelle 5m, pied à 3m du mur. Hauteur ?",opts:["4 m","√34 m","2 m","8 m"],  ans:0, notion:"h²=5²−3²=16 → h=4m. Triangle 3-4-5 !", piege:1},
+{id:"t02",type:"transfert",ch:"trigo",   q:"Toboggan 30° avec le sol, longueur 6m. Hauteur ?",opts:["3 m","3√3 m","6√3 m","2 m"],ans:0, notion:"h=6×sin(30°)=6×0,5=3m.", piege:1},
+{id:"t03",type:"transfert",ch:"trigo",   q:"Phare vu à 40°. Distance horizontale=200m. Hauteur ?",opts:["200×tan(40°)","200/tan(40°)","200×sin(40°)","200×cos(40°)"],ans:0, notion:"tan(40°)=h/200 → h=200×tan(40°).", piege:1},
+{id:"t04",type:"transfert",ch:"fonctions",q:"Prix baisse de 20% puis 15%. Réduction totale ?",opts:["32%","35%","30%","28%"],ans:0, notion:"0,8×0,85=0,68 → réduction de 32%.", piege:1},
+{id:"t05",type:"transfert",ch:"fonctions",q:"f(x)=2x+1 : prix de x kg. Prix pour 4kg ?",opts:["9 €","8 €","10 €","7 €"],ans:0, notion:"f(4)=2×4+1=9€.", piege:null},
+{id:"t06",type:"transfert",ch:"algebre", q:"Périmètre 34cm, longueur = largeur+5. Largeur ?",opts:["6 cm","11 cm","8 cm","5 cm"],ans:0, notion:"2(l+l+5)=34 → 2l+5=17 → l=6cm.", piege:null},
+{id:"t07",type:"transfert",ch:"stats",   q:"18 filles moy=14, 12 garçons moy=11. Moy classe ?",opts:["12,8","12,5","13","11,5"],ans:0, notion:"(18×14+12×11)/30=384/30=12,8.", piege:1},
+{id:"t08",type:"transfert",ch:"geometrie",q:"Cylindre r=3cm, h=5cm. Volume ?",       opts:["45π cm³","15π cm³","30π cm³","9π cm³"],ans:0, notion:"V=πr²h=π×9×5=45π cm³.", piege:2},
+{id:"t09",type:"transfert",ch:"puissances",q:"Bactérie double/heure. Après 8h depuis 1 ?",opts:["256","128","512","64"],  ans:0, notion:"2⁸=256. Croissance exponentielle !", piege:1},
+{id:"t10",type:"transfert",ch:"algebre", q:"Résoudre : (2x−1)² = 9",               opts:["x=2 ou x=−1","x=3 ou x=0","x=5 ou x=−4","x=2 ou x=0"],ans:0, notion:"2x−1=±3 → x=2 ou x=−1.", piege:null},
+{id:"t11",type:"transfert",ch:"trigo",   q:"Escalier : marche=20cm, contre-marche=15cm. tan(α) = ?",opts:["3/4","4/3","3/5","4/5"],ans:0, notion:"tan=opposé/adjacent=15/20=3/4.", piege:1},
+{id:"t12",type:"transfert",ch:"fonctions",q:"f(x)=−x²+4x. Valeur max de f ?",       opts:["4","8","2","−4"],             ans:0, notion:"Sommet x=−b/2a=2 ; f(2)=−4+8=4.", piege:null},
+{id:"t13",type:"transfert",ch:"stats",   q:"P(2 filles en 2 naissances) avec P=1/2 ?",opts:["1/4","1/2","1/3","3/4"],   ans:0, notion:"P=1/2×1/2=1/4. Événements indépendants.", piege:1},
+{id:"t14",type:"transfert",ch:"nombres", q:"Voiture 6L/100km, 1L=1,80€. Coût 350km ?",opts:["37,80 €","21 €","54 €","10,80 €"],ans:0, notion:"350×6/100×1,80=21×1,80=37,80€.", piege:null},
+{id:"t15",type:"transfert",ch:"geometrie",q:"Cône r=3cm, h=4cm. Génératrice = ?",   opts:["5 cm","7 cm","√7 cm","4 cm"],ans:0, notion:"g²=r²+h²=9+16=25 → g=5cm.", piege:null},
+{id:"t16",type:"transfert",ch:"pythagore",q:"Terrain rectangulaire 12m×5m. Diagonale ?",opts:["13 m","17 m","7 m","√119 m"],ans:0, notion:"12²+5²=144+25=169 → √169=13m.", piege:null},
+{id:"t17",type:"transfert",ch:"fractions",q:"3/5 des 30 élèves ont eu ≥10. Combien ?",opts:["18","15","6","12"],         ans:0, notion:"3/5×30=90/5=18 élèves.", piege:null},
+{id:"t18",type:"transfert",ch:"nombres", q:"Intérêt annuel 5% sur 2000€. Intérêt = ?",opts:["100 €","200 €","10 €","50 €"],ans:0, notion:"5% de 2000 = 0,05×2000=100€.", piege:null},
+];
+
+// ══════════════════════════════════════════════════════════════
+// CONSTANTES
+// ══════════════════════════════════════════════════════════════
+const SECONDS  = { auto:60, pont:90, transfert:120 };
+const DIAG_SIZE = 18;
+const EXAM_SIZE = 9;
+const CHAPITRES = ["nombres","fractions","puissances","algebre","geometrie","pythagore","trigo","fonctions","stats"];
+const CH_LABEL  = {
+  nombres:"Nombres & Calculs", fractions:"Fractions",
+  puissances:"Puissances & Racines", algebre:"Algèbre & Équations",
+  geometrie:"Géométrie", pythagore:"Pythagore",
+  trigo:"Trigonométrie", fonctions:"Fonctions", stats:"Stats & Probas",
+};
+const TYPE_LABEL = { auto:"⚡ Automatisme", pont:"🌉 Pont", transfert:"🎯 Transfert Brevet" };
+const TYPE_COLOR = { auto:"#22c55e", pont:"#f59e0b", transfert:"#7c6af7" };
+
+// ══════════════════════════════════════════════════════════════
+// LÉA — VOIX RÉUNIONNAISE
+// ══════════════════════════════════════════════════════════════
+const LEA = {
+  intro:["Ayo ! Moi c'est Léa, je suis en 3e à Saint-Denis. Je vais d'abord te cerner avant qu'on révise ensemble. 18 questions — 9 faciles pour démarrer en confiance, puis 9 pour voir comment tu raisonnes. Alé ! 🌺",
+         "Alé ! Je suis Léa. On prépare le brevet ensemble mais je dois te connaître d'abord. 18 questions en 2 phases — commence cool, puis on monte. Sois honnête, triche pas 😄"],
+  phase2:["Bien joué pour la phase 1 💪 Maintenant on monte d'un cran — mêmes notions mais appliquées différemment. Accroche-toi !",
+          "Les automatismes c'est bon. Maintenant je veux voir comment tu raisonnes. C'est là que le brevet se joue 🎯",
+          "Alé — phase 2 ! Prends ton temps sur chaque question."],
+  correct_fast:["Ouiii ! Même pas hésité 🔥","Alé top chrono !","C'est ancré — parfait !"],
+  correct_slow:["Bonne réponse ! Mais au brevet faut aller plus vite 😉","Juste ! On travaille la vitesse aussi."],
+  wrong_piege:["Aïe aïe aïe — t'as mordu dans LE piège classique !","Ayo ! C'est exactement ce que le brevet veut te faire faire."],
+  wrong_normal:["Aïe... pas tout à fait. Regarde la notion :","Moi j'avais raté pareil au début 😅 Voilà pourquoi :"],
+  wrong_cours:["Kawèr — là il faut revoir le cours. Je t'explique étape par étape 👇","Pas grave ! Ce chapitre mérite qu'on s'y arrête. Lis bien les étapes ci-dessous 📖"],
+  skip:["Pas de souci — on y reviendra.","C'est noté. Retenons la notion."],
+  remediation:["Avant de continuer — essaie cette question plus simple sur le même sujet 💪","Alé, je te donne une question de base pour vérifier que c'est compris 🌺"],
+  next_auto:["Alé, question suivante !","Reste focus."],
+  next_pont:["Attention — là ça monte un peu.","Même notion mais différemment — accroche-toi."],
+  next_transf:["Style brevet maintenant. Prends ton temps.","Là c'est comme l'exam vrai."],
+  exam_start:["Alé — on attaque ! J'ai préparé 9 questions adaptées à ton profil.","C'est parti. J'ai ciblé tes points faibles 💪"],
+  profil_top:["Waouh. T'es vraiment solide. On va chercher les points de raisonnement directement 🔥"],
+  profil_bon:["T'as de bonnes bases ! Quelques zones à renforcer. On travaille intelligent 💪"],
+  profil_moyen:["OK j'ai compris où t'en es. Y'a du boulot mais c'est rattrapable. On sait par où commencer 📚"],
+  profil_faible:["Soyons honnêtes — les bases ont besoin de travail. Mais c'est PAS grave. On repart ensemble, doucement 🌺"],
+  profil_rapide_transfert:" T'as les réflexes mais le raisonnement te coûte. C'est là les 14 points du brevet — on y va.",
+  profil_lent_juste:" Tu comprends bien mais trop lent. On va automatiser.",
+  profil_calcul_sens:" Tu calcules bien mais t'appliques les formules sans savoir pourquoi. On construit le sens.",
+  exam_end_top:["WAOUH 🔥 T'es prêt(e) pour le brevet !"],
+  exam_end_bon:["Bien joué ! On progresse 💪"],
+  exam_end_moyen:["Pas mal. Continue d'entraîner ces notions !"],
+  exam_end_faible:["Ça ira mieux à la prochaine 🌺 L'important c'est de comprendre les erreurs."],
+};
+const rand = a => a[Math.floor(Math.random()*a.length)];
+const shuffle = a => [...a].sort(()=>Math.random()-.5);
+
+// ══════════════════════════════════════════════════════════════
+// DIAGNOSTIC — 18 questions garanties : 1 auto + 1 pont/transfert par chapitre
+// ══════════════════════════════════════════════════════════════
+const buildDiag = (usedIds=[]) => {
+  const pick = (type, ch) => shuffle(BANK.filter(q=>q.type===type&&q.ch===ch&&!usedIds.includes(q.id)))[0]||null;
+  const autos=[], ponts=[];
+  CHAPITRES.forEach((ch,i)=>{
+    const a = pick("auto",ch); if(a) autos.push(a);
+    const t2 = i%2===0?"pont":"transfert";
+    const b = pick(t2,ch)||pick(t2==="pont"?"transfert":"pont",ch);
+    if(b) ponts.push(b);
+  });
+  return [...autos,...ponts].slice(0,DIAG_SIZE);
+};
+
+// ══════════════════════════════════════════════════════════════
+// ÉPREUVE ADAPTATIVE — pondérée selon profil
+// ══════════════════════════════════════════════════════════════
+const buildExam = (profil, usedIds=[]) => {
+  const {autoScore,pontScore,transfertScore,faibles} = profil;
+  const w = { auto:3, pont:3, transfert:3 };
+  if(autoScore<0.5) w.auto=4; if(pontScore<0.5) w.pont=4; if(transfertScore<0.5) w.transfert=4;
+  const tot=w.auto+w.pont+w.transfert;
+  const nA=Math.round(w.auto/tot*EXAM_SIZE), nP=Math.round(w.pont/tot*EXAM_SIZE), nT=EXAM_SIZE-nA-nP;
+  const pool=(type,n)=>{
+    let qs=BANK.filter(q=>q.type===type&&!usedIds.includes(q.id));
+    const first=qs.filter(q=>faibles.includes(q.ch));
+    return shuffle([...first,...qs.filter(q=>!faibles.includes(q.ch))]).slice(0,n);
+  };
+  return shuffle([...pool("auto",nA),...pool("pont",nP),...pool("transfert",nT)]);
+};
+
+// ══════════════════════════════════════════════════════════════
+// CALCUL PROFIL
+// ══════════════════════════════════════════════════════════════
+const calcProfile = results => {
+  const n=results.length, correct=results.filter(r=>r.correct).length;
+  const avgTime=Math.round(results.reduce((s,r)=>s+r.time,0)/n);
+  const sc = t=>{ const b=results.filter(r=>r.type===t); return b.length?b.filter(r=>r.correct).length/b.length:0; };
+  const autoScore=sc("auto"),pontScore=sc("pont"),transfertScore=sc("transfert");
+  const cm={};
+  results.forEach(r=>{ if(!cm[r.ch])cm[r.ch]={ok:0,n:0}; cm[r.ch].n++; if(r.correct)cm[r.ch].ok++; });
+  const forts=Object.entries(cm).filter(([,v])=>v.ok/v.n>=0.5).map(([k])=>k);
+  const faibles=Object.entries(cm).filter(([,v])=>v.ok/v.n<0.5).map(([k])=>k);
+  let niveau="explorateur";
+  if(correct/n>=0.83&&avgTime<30) niveau="expert";
+  else if(correct/n>=0.6) niveau="challenger";
+  let profilMixte=null;
+  if(autoScore>=0.8&&transfertScore<0.5) profilMixte="rapide_transfert";
+  else if(autoScore<0.5&&avgTime>50) profilMixte="lent_juste";
+  else if(autoScore>=0.7&&pontScore<0.5) profilMixte="calcul_sens";
+  return {score:correct,total:n,pct:Math.round(correct/n*100),avgTime,niveau,profilMixte,
+    autoScore,pontScore,transfertScore,fastQ:results.filter(r=>r.correct&&r.time<20).length,
+    piegeCount:results.filter(r=>r.piege).length,forts,faibles};
+};
+
+// ══════════════════════════════════════════════════════════════
+// STORAGE — localStorage (fichier HTML local)
+// ══════════════════════════════════════════════════════════════
+const save = (k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} };
+const load = (k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } };
+
+// ══════════════════════════════════════════════════════════════
+// CODE PROFIL — encode/decode pour portabilité
+// ══════════════════════════════════════════════════════════════
+const encodeProfile = p => {
+  try{
+    const m={s:p.score,t:p.total,n:p.niveau[0],a:Math.round(p.autoScore*10),
+      po:Math.round(p.pontScore*10),r:Math.round(p.transfertScore*10),
+      f:p.faibles.join(","),k:p.forts.join(","),avg:p.avgTime};
+    const b=btoa(unescape(encodeURIComponent(JSON.stringify(m))));
+    const hash=b.replace(/[^A-Z0-9]/gi,"").toUpperCase().slice(0,6);
+    try{localStorage.setItem("lea_c_"+hash,b);}catch(e){}
+    return "LEA-"+hash;
+  }catch(e){return null;}
+};
+const decodeProfile = code => {
+  try{
+    const hash=code.replace("LEA-","").toUpperCase().trim();
+    const b=localStorage.getItem("lea_c_"+hash);
+    if(!b)return null;
+    const m=JSON.parse(decodeURIComponent(escape(atob(b))));
+    const nv={e:"explorateur",c:"challenger",x:"expert"};
+    return{score:m.s,total:m.t,pct:Math.round(m.s/m.t*100),niveau:nv[m.n]||"explorateur",
+      autoScore:m.a/10,pontScore:m.po/10,transfertScore:m.r/10,
+      faibles:m.f?m.f.split(",").filter(Boolean):[],forts:m.k?m.k.split(",").filter(Boolean):[],
+      avgTime:m.avg,profilMixte:null,fastQ:0,piegeCount:0};
+  }catch(e){return null;}
+};
+
+// ══════════════════════════════════════════════════════════════
+// CSS
+// ══════════════════════════════════════════════════════════════
+const css=`
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Nunito:wght@400;600;700;900&family=Fira+Code:wght@500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0e1a;--s:#111827;--s2:#1f2937;--b:rgba(255,255,255,0.07);--t:#f0f4ff;--mu:#6b7280;
+  --lea:#f472b6;--lea2:#fb923c;--ac:#7c6af7;--gn:#22c55e;--rd:#ef4444;--go:#f5c842;--r:14px;
+  --fd:'Syne',sans-serif;--fb:'Nunito',sans-serif;--fm:'Fira Code',monospace;}
+body{background:var(--bg);color:var(--t);font-family:var(--fb);min-height:100vh}
+.app{min-height:100vh;background:
+  radial-gradient(ellipse 70% 50% at 15% 10%,rgba(244,114,182,.09) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 40% at 85% 85%,rgba(124,106,247,.1) 0%,transparent 50%),var(--bg)}
+.wrap{max-width:680px;margin:0 auto;padding:18px 14px 80px}
+/* HEADER */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;
+  background:rgba(17,24,39,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--fd);font-size:19px;font-weight:800}
+.logo span{color:var(--lea)}
+/* LÉA */
+.lrow{display:flex;align-items:flex-end;gap:11px;margin-bottom:20px;animation:su .4s ease both}
+.lav{width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--lea),var(--lea2));
+  display:flex;align-items:center;justify-content:center;font-size:23px;
+  box-shadow:0 0 0 3px rgba(244,114,182,.2),0 0 16px rgba(244,114,182,.12);position:relative}
+.lav::after{content:'';position:absolute;bottom:-1px;right:-1px;width:12px;height:12px;
+  border-radius:50%;background:var(--gn);border:2px solid var(--bg)}
+.lbub{background:linear-gradient(135deg,rgba(244,114,182,.1),rgba(251,146,60,.07));
+  border:1px solid rgba(244,114,182,.18);border-radius:17px 17px 17px 4px;
+  padding:13px 17px;font-size:14px;line-height:1.65;max-width:calc(100% - 60px)}
+.lnm{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--lea);margin-bottom:5px}
+.ty{display:flex;gap:5px;align-items:center;padding:2px 0}
+.ty span{width:6px;height:6px;border-radius:50%;background:var(--lea);opacity:.6;animation:bc 1.2s infinite}
+.ty span:nth-child(2){animation-delay:.2s}.ty span:nth-child(3){animation-delay:.4s}
+@keyframes bc{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+/* PROGRESS */
+.pbar{display:flex;gap:3px;margin-bottom:5px}
+.ps{flex:1;height:5px;border-radius:3px;background:var(--s2);transition:background .4s}
+.ps.ok{background:var(--gn)}.ps.ko{background:var(--rd)}.ps.cur{background:var(--go)}
+.plbl{font-size:10px;color:var(--mu);font-family:var(--fm);margin-bottom:18px;display:flex;justify-content:space-between}
+/* QUESTION */
+.qcard{background:var(--s);border:1px solid var(--b);border-radius:var(--r);
+  padding:20px;margin-bottom:16px;animation:su .4s ease both}
+.qmeta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.qtype{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:100px;
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.qtimer{margin-left:auto;font-family:var(--fm);font-size:13px;color:var(--go)}
+.qtimer.urg{color:var(--rd);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.qtxt{font-family:var(--fd);font-size:clamp(15px,3.5vw,20px);font-weight:700;line-height:1.4;margin-bottom:20px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:440px){.opts{grid-template-columns:1fr}}
+.opt{padding:12px 15px;background:var(--s2);border:2px solid var(--b);border-radius:10px;
+  cursor:pointer;font-family:var(--fb);font-size:13px;font-weight:700;color:var(--t);
+  text-align:left;display:flex;align-items:center;gap:8px;transition:all .17s}
+.opt:hover:not(:disabled){border-color:var(--ac);background:rgba(124,106,247,.1);transform:translateX(3px)}
+.opt.ok{border-color:var(--gn);background:rgba(34,197,94,.1)}
+.opt.ko{border-color:var(--rd);background:rgba(239,68,68,.1)}
+.opt.pg{border-color:var(--go);background:rgba(245,200,66,.07)}
+.opt:disabled{cursor:default}
+.ol{width:23px;height:23px;border-radius:6px;background:rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;flex-shrink:0}
+/* NOTION */
+.notion{margin-top:13px;padding:13px 15px;background:rgba(124,106,247,.07);
+  border:1px solid rgba(124,106,247,.18);border-radius:10px;font-size:13px;line-height:1.6;animation:fi .3s ease}
+.nlbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ac);margin-bottom:4px}
+.ebox{margin-top:8px;padding:9px 12px;background:rgba(239,68,68,.06);border-radius:8px;
+  font-size:12px;color:#fca5a5;font-style:italic}
+/* COURS */
+.cours{margin-top:14px;background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.2);
+  border-radius:12px;overflow:hidden;animation:fi .3s ease}
+.cours-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;cursor:pointer;background:rgba(245,200,66,.07)}
+.cours-ttl{font-size:13px;font-weight:800;color:var(--go)}
+.cours-body{padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+.cours-step{font-size:13px;line-height:1.6;padding:8px 10px;background:rgba(255,255,255,.03);
+  border-radius:8px;border-left:3px solid var(--go)}
+.cours-note{font-size:12px;color:#fde68a;font-style:italic;padding:8px 10px;
+  background:rgba(245,200,66,.06);border-radius:8px;margin-top:4px}
+/* REMÉDIATION */
+.remed{margin-top:14px;background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:12px;padding:14px 16px;animation:fi .3s ease}
+.remed-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gn);margin-bottom:10px}
+.remed-q{font-size:14px;font-weight:700;margin-bottom:12px;line-height:1.4}
+/* CARDS */
+.card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);padding:18px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.sc{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:13px;text-align:center}
+.sn{font-family:var(--fd);font-size:26px;font-weight:800}
+.sl{font-size:10px;color:var(--mu);margin-top:3px}
+.br{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.bl{font-size:12px;font-weight:700;width:108px;flex-shrink:0}
+.bt{flex:1;height:8px;background:var(--s2);border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px;transition:width .8s ease}
+.bp{font-family:var(--fm);font-size:11px;color:var(--mu);width:32px;text-align:right}
+/* RÉSULTATS */
+.ar{background:var(--s2);border-radius:10px;padding:12px 14px;border-left:4px solid transparent;
+  display:flex;gap:10px;align-items:flex-start;margin-bottom:7px}
+.ar.ok{border-color:var(--gn)}.ar.ko{border-color:var(--rd)}
+.aq{font-size:12px;font-weight:700;margin-bottom:3px}
+.an{font-size:11px;color:#a5b4fc;margin-top:3px;line-height:1.5}
+.ae{font-size:11px;color:#fca5a5;margin-top:2px;font-style:italic}
+/* CODE PROFIL */
+.codecard{background:linear-gradient(135deg,rgba(244,114,182,.1),rgba(251,146,60,.07));
+  border:2px solid rgba(244,114,182,.3);border-radius:var(--r);padding:16px 18px;
+  margin-bottom:16px;text-align:center}
+.codelbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--lea);margin-bottom:8px}
+.codeval{font-family:var(--fm);font-size:clamp(20px,6vw,28px);font-weight:800;letter-spacing:4px;
+  color:var(--t);background:var(--s2);border-radius:9px;padding:10px 18px;
+  display:inline-block;margin-bottom:8px}
+.codesub{font-size:11px;color:var(--mu);line-height:1.6;margin-bottom:10px}
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:11px;font-weight:700}
+.tg{background:rgba(34,197,94,.14);color:#4ade80}
+.tr{background:rgba(239,68,68,.14);color:#f87171}
+.to{background:rgba(245,200,66,.14);color:var(--go)}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:12px 22px;border-radius:10px;border:none;cursor:pointer;
+  font-family:var(--fb);font-size:14px;font-weight:800;transition:all .2s}
+.blea{background:linear-gradient(135deg,var(--lea),var(--lea2));color:white;width:100%}
+.blea:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(244,114,182,.28)}
+.bgh{background:var(--s2);color:var(--t);border:1px solid var(--b)}
+.bgh:hover{background:var(--s)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+/* NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(17,24,39,.95);
+  backdrop-filter:blur(14px);border-top:1px solid var(--b);
+  display:flex;justify-content:space-around;padding:7px 0 max(7px,env(safe-area-inset-bottom));z-index:100}
+.ni{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 12px;
+  cursor:pointer;border:none;background:none;color:var(--mu);
+  font-size:10px;font-family:var(--fb);font-weight:700;transition:color .2s}
+.ni.on{color:var(--lea)}
+.ni svg{width:20px;height:20px}
+/* SETUP */
+.setup{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.sc2{max-width:380px;width:100%;background:var(--s);border:1px solid var(--b);
+  border-radius:20px;padding:28px 22px;animation:su .5s ease both}
+.inp{width:100%;padding:11px 14px;background:var(--s2);border:1px solid var(--b);
+  border-radius:10px;color:var(--t);font-family:var(--fb);font-size:15px;
+  outline:none;transition:border-color .2s;margin-top:6px}
+.inp:focus{border-color:var(--lea)}
+.avs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.av{font-size:27px;cursor:pointer;border-radius:8px;padding:5px;border:2px solid transparent;transition:all .2s}
+.av:hover{background:var(--s2)}.av.sel{border-color:var(--lea);background:rgba(244,114,182,.1)}
+/* NIV */
+.nb{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;
+  border-radius:100px;font-family:var(--fd);font-size:15px;font-weight:800}
+/* MISC */
+.sec{font-family:var(--fd);font-size:16px;font-weight:800;margin-bottom:11px}
+.div{height:1px;background:var(--b);margin:16px 0}
+.flex{display:flex;gap:7px;flex-wrap:wrap}
+.pc{background:linear-gradient(135deg,rgba(244,114,182,.08),rgba(124,106,247,.08));
+  border:1px solid rgba(244,114,182,.18);border-radius:var(--r);padding:16px 20px;margin-bottom:16px}
+.pclbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--lea);margin-bottom:7px}
+.pctxt{font-size:13px;line-height:1.7}
+@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--s2);border-radius:3px}
+`;
+
+// ══════════════════════════════════════════════════════════════
+// COMPOSANTS
+// ══════════════════════════════════════════════════════════════
+const LeaBubble = ({text,typing=false}) => (
+  <div className="lrow">
+    <div className="lav">🌺</div>
+    <div className="lbub">
+      <div className="lnm">Léa · Saint-Denis, La Réunion</div>
+      {typing ? <div className="ty"><span/><span/><span/></div> : <div>{text}</div>}
+    </div>
+  </div>
+);
+
+const TimerRing = ({left,total}) => {
+  const r=20,c=2*Math.PI*r,p=left/total;
+  const col=p>.5?"#7c6af7":p>.25?"#f5c842":"#ef4444";
+  return (
+    <div style={{position:"relative",display:"inline-flex",alignItems:"center",justifyContent:"center"}}>
+      <svg width="50" height="50" viewBox="0 0 50 50" style={{transform:"rotate(-90deg)"}}>
+        <circle cx="25" cy="25" r={r} fill="none" stroke="rgba(255,255,255,.07)" strokeWidth="3"/>
+        <circle cx="25" cy="25" r={r} fill="none" stroke={col} strokeWidth="3"
+          strokeDasharray={c} strokeDashoffset={c*(1-p)} strokeLinecap="round"
+          style={{transition:"stroke-dashoffset .8s linear,stroke .5s"}}/>
+      </svg>
+      <span style={{position:"absolute",fontFamily:"var(--fm)",fontSize:"12px",color:col}}>{left}</span>
+    </div>
+  );
+};
+
+// ══════════════════════════════════════════════════════════════
+// MAIN APP
+// ══════════════════════════════════════════════════════════════
+  const [screen,setScreen]   = useState("loading");
+  const [tab,setTab]         = useState("home");
+  const [profile,setProfile] = useState(null);
+  const [diagProfile,setDiagProfile] = useState(null);
+  const [history,setHistory] = useState([]);
+  const [profileCode,setProfileCode] = useState(null);
+  const [importInput,setImportInput] = useState("");
+  const [importError,setImportError] = useState("");
+
+  // Quiz
+  const [questions,setQuestions] = useState([]);
+  const [qIdx,setQIdx]           = useState(0);
+  const [answers,setAnswers]     = useState([]);
+  const [chosen,setChosen]       = useState(null);
+  const [timeLeft,setTimeLeft]   = useState(60);
+  const [showNotion,setShowNotion] = useState(false);
+  const [showCours,setShowCours]  = useState(false);
+  const [coursOpen,setCoursOpen]  = useState(false);
+  const [showRemed,setShowRemed]  = useState(false);
+  const [remedDone,setRemedDone]  = useState(false);
+  const [remedChosen,setRemedChosen] = useState(null);
+  const [leaMsg,setLeaMsg]       = useState("");
+  const [leaTyping,setLeaTyping] = useState(false);
+  const [qStart,setQStart]       = useState(Date.now());
+  const [isDiag,setIsDiag]       = useState(true);
+  const [usedIds,setUsedIds]     = useState([]);
+  // Compteur d'erreurs par chapitre pour déclencher cours
+  const [errCount,setErrCount]   = useState({});
+
+  const timerRef = useRef(null);
+
+  useEffect(()=>{
+    const p=load("lp",null), d=load("ld",null),
+          h=load("lh",[]), pc=load("lpcode",null);
+    setProfile(p); setDiagProfile(d); setHistory(h);
+    if(pc) setProfileCode(pc);
+    setScreen(p?"main":"setup");
+  },[]);
+
+  useEffect(()=>{
+    if(screen!=="quiz"||chosen!==null) return;
+    timerRef.current=setInterval(()=>{
+      setTimeLeft(t=>{ if(t<=1){clearInterval(timerRef.current);handleAnswer(-1);return 0;} return t-1; });
+    },1000);
+    return()=>clearInterval(timerRef.current);
+  },[screen,qIdx,chosen]);
+
+  const leaSay=useCallback((msg,delay=350)=>{
+    setLeaTyping(true);
+    setTimeout(()=>{setLeaTyping(false);setLeaMsg(msg);},delay+Math.min(msg.length*14,1100));
+  },[]);
+
+  const launchQuiz=useCallback((qs,diag=false)=>{
+    setQuestions(qs);setQIdx(0);setAnswers([]);
+    setChosen(null);setShowNotion(false);setShowCours(false);setCoursOpen(false);
+    setShowRemed(false);setRemedDone(false);setRemedChosen(null);
+    setTimeLeft(SECONDS[qs[0]?.type]||60);setQStart(Date.now());setIsDiag(diag);
+    setScreen("quiz");
+  },[]);
+
+  const startDiag=()=>{
+    const qs=buildDiag(usedIds);
+    setUsedIds(prev=>[...prev,...qs.map(q=>q.id)]);
+    launchQuiz(qs,true);
+    leaSay(rand(LEA.intro),200);
+  };
+
+  const startExam=()=>{
+    if(!diagProfile) return;
+    const qs=buildExam(diagProfile,usedIds);
+    setUsedIds(prev=>[...prev,...qs.map(q=>q.id)]);
+    launchQuiz(qs,false);
+    leaSay(rand(LEA.exam_start),200);
+  };
+
+  const handleAnswer=useCallback((idx)=>{
+    if(chosen!==null) return;
+    clearInterval(timerRef.current);
+    const elapsed=Math.round((Date.now()-qStart)/1000);
+    setChosen(idx);
+    setShowNotion(true);
+    const q=questions[qIdx];
+    const correct=idx===q.ans, isPiege=idx===q.piege;
+    setAnswers(prev=>[...prev,{qid:q.id,type:q.type,ch:q.ch,correct,time:elapsed,piege:isPiege,chosenIdx:idx,q}]);
+
+    if(!correct){
+      // Incrémenter compteur d'erreurs pour ce chapitre
+      const newCount={...errCount,[q.ch]:(errCount[q.ch]||0)+1};
+      setErrCount(newCount);
+      // Afficher cours si 1ère erreur sur ce chapitre, remédiation si 2ème+
+      if((errCount[q.ch]||0)>=1){
+        setShowCours(true);
+        setShowRemed(true);
+        leaSay(rand(LEA.wrong_cours),300);
+      } else {
+        setShowCours(true);
+        leaSay(idx===-1?rand(LEA.skip):isPiege?rand(LEA.wrong_piege):rand(LEA.wrong_normal),300);
+      }
+    } else {
+      let msg;
+      if(elapsed<20) msg=rand(LEA.correct_fast);
+      else if(elapsed>50) msg=rand(LEA.correct_slow);
+      else msg="Bien ! T'as trouvé 👍";
+      leaSay(msg,300);
+    }
+  },[chosen,questions,qIdx,qStart,leaSay,errCount]);
+
+  const nextQ=async()=>{
+    if(showRemed&&!remedDone) return; // bloquer si remédiation pas faite
+    if(qIdx+1>=questions.length){ await finishQuiz(); }
+    else{
+      const ni=qIdx+1;
+      setQIdx(ni);setChosen(null);setShowNotion(false);
+      setShowCours(false);setCoursOpen(false);
+      setShowRemed(false);setRemedDone(false);setRemedChosen(null);
+      setTimeLeft(SECONDS[questions[ni]?.type]||60);setQStart(Date.now());
+      if(isDiag&&ni===9) leaSay(rand(LEA.phase2),200);
+      else { const t=questions[ni]?.type; leaSay(rand(t==="pont"?LEA.next_pont:t==="transfert"?LEA.next_transf:LEA.next_auto),200); }
+    }
+  };
+
+  const finishQuiz=async()=>{
+    const p=calcProfile(answers);
+    if(isDiag){
+      setDiagProfile(p); save("ld",p);
+      const code=encodeProfile(p);
+      if(code){setProfileCode(code);save("lpcode",code);}
+      let msg=rand(p.pct>=83?LEA.profil_top:p.pct>=60?LEA.profil_bon:p.pct>=33?LEA.profil_moyen:LEA.profil_faible);
+      if(p.profilMixte==="rapide_transfert") msg+=LEA.profil_rapide_transfert;
+      else if(p.profilMixte==="lent_juste") msg+=LEA.profil_lent_juste;
+      else if(p.profilMixte==="calcul_sens") msg+=LEA.profil_calcul_sens;
+      leaSay(msg,500);
+    } else {
+      const entry={id:Date.now(),date:new Date().toLocaleDateString("fr-FR"),
+        score:p.score,total:p.total,pct:p.pct,
+        answers:answers.map(a=>({qid:a.qid,type:a.type,ch:a.ch,correct:a.correct,
+          notion:a.q.notion,qtext:a.q.q,chosenIdx:a.chosenIdx,ans:a.q.ans}))};
+      const nh=[entry,...history].slice(0,100);
+      setHistory(nh);save("lh",nh);
+      leaSay(rand(p.pct>=89?LEA.exam_end_top:p.pct>=67?LEA.exam_end_bon:p.pct>=44?LEA.exam_end_moyen:LEA.exam_end_faible),400);
+    }
+    setScreen("results");
+  };
+
+  const setupProfile=p=>{setProfile(p);save("lp",p);setScreen("main");};
+  const resetDiag=()=>{setDiagProfile(null);save("ld",null);setUsedIds([]);setErrCount({});};
+
+  const mastery=()=>{
+    const m={};CHAPITRES.forEach(k=>m[k]={ok:0,n:0});
+    history.forEach(e=>e.answers?.forEach(a=>{if(m[a.ch]){m[a.ch].n++;if(a.correct)m[a.ch].ok++;}}));
+    return m;
+  };
+  const NIV={
+    explorateur:{emoji:"🥉",label:"Explorateur",color:"#4CAF50",bg:"rgba(76,175,80,.1)"},
+    challenger:{emoji:"🥈",label:"Challenger",color:"#2196F3",bg:"rgba(33,150,243,.1)"},
+    expert:{emoji:"🥇",label:"Expert Brevet",color:"#FF9800",bg:"rgba(255,152,0,.1)"},
+  };
+
+  // ── LOADING ──
+  if(screen==="loading") return (
+    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#0a0e1a"}}>
+      <div style={{textAlign:"center"}}><div style={{fontSize:46,marginBottom:9}}>🌺</div>
+        <div style={{fontFamily:"sans-serif",color:"#6b7280",fontSize:12}}>Léa arrive...</div></div>
+    </div>
+  );
+
+  if(screen==="setup") return <SetupScreen onDone={setupProfile}/>;
+
+  // ── QUIZ ──
+  if(screen==="quiz"){
+    const q=questions[qIdx]; if(!q) return null;
+    const letters=["A","B","C","D"];
+    const total=SECONDS[q.type]||60;
+    const cours=COURS[q.ch];
+    const remedQ=cours?.remediation;
+
+    return (
+      <div className="app"><style>{css}</style>
+        <div className="hdr">
+          <button className="btn bgh" style={{padding:"6px 11px",fontSize:11}} onClick={()=>setScreen("main")}>← Quitter</button>
+          <span style={{fontFamily:"var(--fm)",fontSize:11,color:"var(--mu)"}}>
+            {isDiag?"Diagnostic":"Épreuve"} {qIdx+1}/{questions.length}
+          </span>
+          <TimerRing left={timeLeft} total={total}/>
+        </div>
+        <div className="wrap" style={{paddingTop:14}}>
+          {/* Progress */}
+          <div style={{marginBottom:5}}>
+            <div className="pbar">
+              {questions.map((_,i)=>{
+                const r=answers[i];
+                return <div key={i} className={`ps${i<qIdx?(r?.correct?" ok":" ko"):i===qIdx?" cur":""}`}
+                  style={isDiag&&i===9?{marginLeft:"5px"}:{}}/>;
+              })}
+            </div>
+            <div className="plbl">
+              <span>{TYPE_LABEL[q.type]} · {CH_LABEL[q.ch]}</span>
+              {isDiag&&<span style={{fontSize:9}}>{qIdx<9?"⚡ Phase 1 — Automatismes":"🎯 Phase 2 — Raisonnement"}</span>}
+            </div>
+          </div>
+
+          {(leaMsg||leaTyping)&&<LeaBubble text={leaMsg} typing={leaTyping}/>}
+
+          <div className="qcard">
+            <div className="qmeta">
+              <span className="qtype" style={{background:`${TYPE_COLOR[q.type]}18`,color:TYPE_COLOR[q.type]}}>{TYPE_LABEL[q.type]}</span>
+              <span style={{fontFamily:"var(--fm)",fontSize:11,color:"var(--mu)"}}>Q{qIdx+1}</span>
+            </div>
+            <div className="qtxt">{q.q}</div>
+            <div className="opts">
+              {q.opts.map((opt,i)=>{
+                let cl="opt";
+                if(chosen!==null){if(i===q.ans)cl+=" ok";else if(i===chosen&&chosen!==q.ans)cl+=i===q.piege?" pg":" ko";}
+                return <button key={i} className={cl} onClick={()=>handleAnswer(i)} disabled={chosen!==null}>
+                  <span className="ol">{letters[i]}</span>{opt}</button>;
+              })}
+            </div>
+
+            {/* NOTION FLASH */}
+            {showNotion&&(
+              <div className="notion">
+                <div className="nlbl">📘 Notion clé</div>
+                <div>{q.notion}</div>
+                {chosen!==q.ans&&chosen!==-1&&q.erreur_type?.[chosen]&&<div className="ebox">💡 {q.erreur_type[chosen]}</div>}
+              </div>
+            )}
+
+            {/* COURS PAS À PAS — si erreur */}
+            {showCours&&cours&&(
+              <div className="cours">
+                <div className="cours-hdr" onClick={()=>setCoursOpen(o=>!o)}>
+                  <span className="cours-ttl">📖 Cours — {cours.titre}</span>
+                  <span style={{color:"var(--go)",fontSize:18}}>{coursOpen?"▲":"▼"}</span>
+                </div>
+                {coursOpen&&(
+                  <div className="cours-body">
+                    {cours.etapes.map((e,i)=>(
+                      <div key={i} className={e.startsWith("📝")||e.startsWith("✏️")?"cours-note":"cours-step"}>{e}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* REMÉDIATION — si 2e erreur sur ce chapitre */}
+            {showRemed&&remedQ&&!remedDone&&(
+              <div className="remed">
+                <div className="remed-lbl">💪 Question de remédiation — {CH_LABEL[q.ch]}</div>
+                <div className="remed-q">{remedQ.q}</div>
+                <div className="opts">
+                  {remedQ.opts.map((opt,i)=>{
+                    let cl="opt";
+                    if(remedChosen!==null){if(i===remedQ.ans)cl+=" ok";else if(i===remedChosen)cl+=" ko";}
+                    return <button key={i} className={cl}
+                      disabled={remedChosen!==null}
+                      onClick={()=>{
+                        setRemedChosen(i);
+                        if(i===remedQ.ans){setRemedDone(true);leaSay("Parfait ! T'as compris. On continue 🌺",200);}
+                        else leaSay("Pas encore... relis le cours et réessaie 💪",200);
+                      }}>
+                      <span className="ol">{["A","B","C","D"][i]}</span>{opt}</button>;
+                  })}
+                </div>
+                {remedChosen!==null&&remedChosen!==remedQ.ans&&(
+                  <div style={{marginTop:8,fontSize:12,color:"#fca5a5"}}>📘 {remedQ.notion}</div>
+                )}
+                {remedDone&&<div style={{marginTop:8,fontSize:12,color:"#4ade80"}}>✅ {remedQ.notion}</div>}
+              </div>
+            )}
+
+            {/* BOUTON SUIVANT */}
+            {showNotion&&(
+              <div style={{marginTop:12,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}}>
+                {showCours&&!coursOpen&&(
+                  <button className="btn bgh" style={{padding:"8px 12px",fontSize:11,width:"auto"}}
+                    onClick={()=>setCoursOpen(true)}>📖 Voir le cours</button>
+                )}
+                <button className="btn" style={{background:"var(--lea)",color:"white",padding:"10px 18px",
+                  fontSize:12,width:"auto",marginLeft:"auto",
+                  opacity:(showRemed&&!remedDone)?0.4:1,cursor:(showRemed&&!remedDone)?"not-allowed":"pointer"}}
+                  onClick={nextQ}
+                  disabled={showRemed&&!remedDone}>
+                  {showRemed&&!remedDone?"⏳ Fais la remédiation d'abord":qIdx+1>=questions.length?(isDiag?"Voir mon profil 🌺":"Résultats 🏁"):"Suivante →"}
+                </button>
+              </div>
+            )}
+            {chosen===null&&(
+              <div style={{marginTop:11,textAlign:"center"}}>
+                <button className="btn bgh" style={{padding:"7px 13px",fontSize:11}} onClick={()=>handleAnswer(-1)}>⏭ Je ne sais pas</button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── RESULTS ──
+  if(screen==="results"){
+    const p=calcProfile(answers);
+    const sc=p.pct>=70?"#22c55e":p.pct>=45?"#f5c842":"#ef4444";
+    const niv=NIV[p.niveau]||NIV.explorateur;
+    return (
+      <div className="app"><style>{css}</style>
+        <div className="hdr">
+          <div className="logo">Brevet<span>Léa</span></div>
+          <button className="btn bgh" style={{padding:"6px 11px",fontSize:11}} onClick={()=>{setScreen("main");setTab("home");}}>Accueil</button>
+        </div>
+        <div className="wrap">
+          <div style={{textAlign:"center",padding:"24px 0 18px",animation:"su .5s ease both"}}>
+            <div style={{fontSize:52,marginBottom:7}}>{p.pct>=70?"🔥":p.pct>=45?"⭐":"📚"}</div>
+            <div style={{fontFamily:"var(--fd)",fontSize:"clamp(44px,12vw,68px)",fontWeight:800,color:sc,lineHeight:1}}>{p.score}</div>
+            <div style={{color:"var(--mu)",fontSize:13,marginTop:3}}>/ {p.total} point{p.total>1?"s":""} · {p.avgTime}s moyen</div>
+          </div>
+
+          <div className="pc">
+            <div className="pclbl">🌺 Léa te dit</div>
+            <div className="pctxt">{leaTyping?<div className="ty"><span/><span/><span/></div>:leaMsg||"..."}</div>
+          </div>
+
+          {isDiag&&(
+            <>
+              <div style={{textAlign:"center",marginBottom:16}}>
+                <div style={{fontSize:11,color:"var(--mu)",marginBottom:7}}>Léa te recommande</div>
+                <div className="nb" style={{background:niv.bg,color:niv.color,margin:"0 auto"}}>{niv.emoji} {niv.label}</div>
+              </div>
+              {profileCode&&(
+                <div className="codecard">
+                  <div className="codelbl">📋 Ton code profil — note-le !</div>
+                  <div className="codeval">{profileCode}</div>
+                  <div className="codesub">Si tu changes d'appareil ou de navigateur,<br/>colle ce code pour retrouver ton profil sans refaire le diagnostic.</div>
+                  <button className="btn bgh" style={{padding:"7px 14px",fontSize:11,width:"auto"}}
+                    onClick={()=>{ navigator.clipboard?.writeText(profileCode).then(()=>alert("Code copié ! 📋")).catch(()=>alert("Ton code : "+profileCode)); }}>
+                    📋 Copier le code
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          <div className="g3">
+            <div className="sc"><div className="sn" style={{color:p.fastQ>=2?"#22c55e":"#f5c842"}}>{p.fastQ}</div><div className="sl">Réponses rapides</div></div>
+            <div className="sc"><div className="sn" style={{color:p.piegeCount>0?"#ef4444":"#22c55e"}}>{p.piegeCount}</div><div className="sl">Pièges tombés</div></div>
+            <div className="sc"><div className="sn" style={{color:"var(--go)"}}>{p.avgTime}s</div><div className="sl">Temps moyen</div></div>
+          </div>
+
+          <div className="card" style={{marginBottom:14}}>
+            <div className="sec" style={{fontSize:13}}>Par type de question</div>
+            {[["autoScore","⚡ Automatisme","#22c55e"],["pontScore","🌉 Pont","#f59e0b"],["transfertScore","🎯 Transfert","#7c6af7"]].map(([k,l,c])=>(
+              <div key={k} className="br">
+                <span className="bl">{l}</span>
+                <div className="bt"><div className="bf" style={{width:`${Math.round(p[k]*100)}%`,background:c}}/></div>
+                <span className="bp">{Math.round(p[k]*100)}%</span>
+              </div>
+            ))}
+          </div>
+
+          {(p.forts.length>0||p.faibles.length>0)&&(
+            <div className="card" style={{marginBottom:14}}>
+              {p.forts.length>0&&<><div style={{fontSize:10,color:"var(--mu)",marginBottom:5}}>✅ Points forts</div>
+                <div className="flex" style={{marginBottom:9}}>{p.forts.map(c=><span key={c} className="tag tg">{CH_LABEL[c]}</span>)}</div></>}
+              {p.faibles.length>0&&<><div style={{fontSize:10,color:"var(--mu)",marginBottom:5}}>🔴 À renforcer</div>
+                <div className="flex">{p.faibles.map(c=><span key={c} className="tag tr">{CH_LABEL[c]}</span>)}</div></>}
+            </div>
+          )}
+
+          <div className="div"/>
+          <div className="sec">Correction détaillée</div>
+          {answers.map((r,i)=>(
+            <div key={i} className={`ar ${r.correct?"ok":"ko"}`}>
+              <div style={{fontSize:17,flexShrink:0}}>{r.correct?"✅":"❌"}</div>
+              <div style={{flex:1}}>
+                <div className="aq">{r.q.q}</div>
+                <div style={{fontSize:10,color:"var(--mu)",marginTop:1}}>{TYPE_LABEL[r.type]} · {r.time}s{r.piege&&<span style={{color:"var(--go)",marginLeft:5}}>⚠️ Piège</span>}</div>
+                <div className="an">📘 {r.q.notion}</div>
+                {!r.correct&&COURS[r.ch]&&(
+                  <div style={{fontSize:10,color:"#fde68a",marginTop:3}}>
+                    📖 Cours à revoir : {COURS[r.ch].titre}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <div className="div"/>
+          <div style={{display:"flex",gap:9,marginBottom:8}}>
+            {isDiag
+              ? <button className="btn blea" onClick={startExam}>⚡ Commencer les épreuves</button>
+              : <><button className="btn blea" onClick={startExam}>🔄 Nouvelle épreuve</button>
+                 <button className="btn bgh" style={{flex:"0 0 auto"}} onClick={()=>{setScreen("main");setTab("home");}}>🏠</button></>
+            }
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── MAIN TABS ──
+  const m=mastery(), totalE=history.length;
+  const avgS=totalE?Math.round(history.reduce((s,e)=>s+e.pct,0)/totalE):0;
+  const bestS=totalE?Math.max(...history.map(e=>e.score)):0;
+
+  return (
+    <div className="app"><style>{css}</style>
+      <div className="hdr">
+        <div className="logo">Brevet<span>Léa</span></div>
+        <div style={{display:"flex",alignItems:"center",gap:9}}>
+          {profile&&<span style={{fontSize:11,color:"var(--mu)"}}>👋 {profile.name}</span>}
+          <div style={{width:32,height:32,borderRadius:"50%",
+            background:"linear-gradient(135deg,var(--lea),var(--lea2))",
+            display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,cursor:"pointer"}}
+            onClick={()=>setTab("profil")}>{profile?.avatar||"🌺"}</div>
+        </div>
+      </div>
+
+      {/* HOME */}
+      {tab==="home"&&(
+        <div className="wrap" style={{animation:"su .4s ease both"}}>
+          <LeaBubble text={diagProfile
+            ?`Ayo ${profile?.name} ! Ton diagnostic est fait. Niveau : ${NIV[diagProfile.niveau]?.label}. On attaque ?`
+            :rand(LEA.intro)}/>
+          {!diagProfile?(
+            <div className="card" style={{marginBottom:16,borderColor:"rgba(244,114,182,.2)"}}>
+              <div className="sec">Diagnostic Léa 🔍</div>
+              <div style={{color:"var(--mu)",fontSize:12,lineHeight:1.8,marginBottom:14}}>
+                <div>📍 <b>18 questions</b> — 2 phases · 9 chapitres couverts</div>
+                <div>⚡ Phase 1 — automatismes · 🎯 Phase 2 — raisonnement</div>
+                <div>📖 Cours pas à pas si notion non maîtrisée</div>
+                <div>💪 Exercice de remédiation si besoin</div>
+                <div>📋 Code profil généré pour ne pas recommencer</div>
+              </div>
+              <button className="btn blea" onClick={startDiag}>🌺 Faire le diagnostic</button>
+              <div style={{marginTop:14,paddingTop:14,borderTop:"1px solid var(--b)"}}>
+                <div style={{fontSize:11,color:"var(--mu)",marginBottom:7,fontWeight:700}}>📋 Tu as déjà un code profil ?</div>
+                <div style={{display:"flex",gap:7}}>
+                  <input className="inp" style={{flex:1,marginTop:0,fontSize:12,padding:"8px 11px",
+                    textTransform:"uppercase",letterSpacing:2,fontFamily:"var(--fm)"}}
+                    placeholder="LEA-XXXXXX" value={importInput}
+                    onChange={e=>{setImportInput(e.target.value.toUpperCase());setImportError("");}}
+                    maxLength={10}/>
+                  <button className="btn bgh" style={{padding:"8px 12px",fontSize:11,flexShrink:0}}
+                    onClick={async()=>{
+                      const p=decodeProfile(importInput);
+                      if(p){setDiagProfile(p);save("ld",p);setImportError("");}
+                      else setImportError("Code non reconnu.");
+                    }}>Importer</button>
+                </div>
+                {importError&&<div style={{fontSize:10,color:"var(--rd)",marginTop:5}}>{importError}</div>}
+              </div>
+            </div>
+          ):(
+            <>
+              <div className="card" style={{background:"linear-gradient(135deg,rgba(244,114,182,.09),rgba(124,106,247,.07))",borderColor:"rgba(244,114,182,.22)",marginBottom:14}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:11}}>
+                  <div>
+                    <div style={{fontFamily:"var(--fd)",fontSize:17,fontWeight:800}}>{NIV[diagProfile.niveau]?.emoji} {NIV[diagProfile.niveau]?.label}</div>
+                    <div style={{color:"var(--mu)",fontSize:11,marginTop:2}}>Diag : {diagProfile.score}/{diagProfile.total} · {diagProfile.avgTime}s moy</div>
+                  </div>
+                  <button className="btn blea" style={{width:"auto",padding:"11px 20px"}} onClick={startExam}>⚡ Épreuve avec Léa</button>
+                </div>
+              </div>
+              {profileCode&&(
+                <div style={{background:"var(--s2)",borderRadius:10,padding:"10px 14px",marginBottom:12,display:"flex",alignItems:"center",gap:10}}>
+                  <span style={{fontFamily:"var(--fm)",fontSize:13,letterSpacing:2,color:"var(--lea)",fontWeight:800}}>{profileCode}</span>
+                  <span style={{fontSize:11,color:"var(--mu)",flex:1}}>Ton code profil — note-le !</span>
+                  <button className="btn bgh" style={{padding:"5px 10px",fontSize:10,width:"auto"}}
+                    onClick={()=>{navigator.clipboard?.writeText(profileCode).then(()=>alert("Copié ! 📋")).catch(()=>alert(profileCode));}}>
+                    📋
+                  </button>
+                </div>
+              )}
+              <button className="btn bgh" style={{width:"100%",fontSize:11,padding:"8px"}} onClick={async()=>await resetDiag()}>🔄 Refaire le diagnostic</button>
+            </>
+          )}
+          {history.length>0&&(
+            <>
+              <div className="div"/>
+              <div className="sec">Dernières épreuves</div>
+              {history.slice(0,3).map(e=>(
+                <div key={e.id} style={{display:"flex",alignItems:"center",gap:9,padding:"9px 0",borderBottom:"1px solid var(--b)"}}>
+                  <span style={{fontSize:18}}>{e.pct>=70?"🔥":e.pct>=45?"⭐":"📚"}</span>
+                  <div style={{flex:1}}><div style={{fontWeight:700,fontSize:12}}>{e.score}/{e.total} points</div>
+                    <div style={{fontSize:10,color:"var(--mu)"}}>{e.date}</div></div>
+                  <span className={`tag ${e.pct>=70?"tg":e.pct>=45?"to":"tr"}`}>{e.pct}%</span>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* PROGRÈS */}
+      {tab==="progres"&&(
+        <div className="wrap" style={{animation:"su .4s ease both"}}>
+          <div className="sec">Mes progrès</div>
+          <div className="g3" style={{marginBottom:16}}>
+            <div className="sc"><div className="sn" style={{color:"var(--lea)"}}>{totalE}</div><div className="sl">Épreuves</div></div>
+            <div className="sc"><div className="sn" style={{color:"var(--go)"}}>{avgS}%</div><div className="sl">Moy. %</div></div>
+            <div className="sc"><div className="sn" style={{color:"var(--gn)"}}>{bestS}</div><div className="sl">Meilleur /9</div></div>
+          </div>
+          <div className="sec">Maîtrise par chapitre</div>
+          <div className="card" style={{marginBottom:16}}>
+            {CHAPITRES.map(k=>{
+              const v=m[k]||{ok:0,n:0},pct=v.n>0?Math.round(v.ok/v.n*100):0;
+              const col=pct>=70?"#22c55e":pct>=40?"#f5c842":pct>0?"#ef4444":"var(--s2)";
+              return <div key={k} className="br">
+                <span className="bl" style={{fontSize:10}}>{CH_LABEL[k]}</span>
+                <div className="bt"><div className="bf" style={{width:`${pct}%`,background:col}}/></div>
+                <span className="bp">{v.n>0?`${pct}%`:"—"}</span>
+              </div>;
+            })}
+          </div>
+          {history.length>0&&(<>
+            <div className="sec">Historique</div>
+            <div className="card">
+              {history.map(e=>(
+                <div key={e.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid var(--b)"}}>
+                  <span style={{fontSize:16}}>{e.pct>=70?"🔥":e.pct>=45?"⭐":"📚"}</span>
+                  <div style={{flex:1}}><div style={{fontWeight:700,fontSize:11}}>{e.score}/{e.total} pts</div>
+                    <div style={{fontSize:10,color:"var(--mu)"}}>{e.date}</div></div>
+                  <span className={`tag ${e.pct>=70?"tg":e.pct>=45?"to":"tr"}`}>{e.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </>)}
+        </div>
+      )}
+
+      {/* PROFIL */}
+      {tab==="profil"&&(
+        <div className="wrap" style={{animation:"su .4s ease both"}}>
+          <div className="sec">Mon profil</div>
+          <div className="card" style={{textAlign:"center",marginBottom:14}}>
+            <div style={{fontSize:52,marginBottom:8}}>{profile?.avatar||"🌺"}</div>
+            <div style={{fontFamily:"var(--fd)",fontSize:22,fontWeight:800}}>{profile?.name}</div>
+            <div style={{color:"var(--mu)",marginTop:3,fontSize:12}}>Candidat·e au Brevet 2026</div>
+            {diagProfile&&<div style={{marginTop:9}}><span className="nb" style={{background:NIV[diagProfile.niveau]?.bg,color:NIV[diagProfile.niveau]?.color,display:"inline-flex"}}>{NIV[diagProfile.niveau]?.emoji} {NIV[diagProfile.niveau]?.label}</span></div>}
+          </div>
+          {profileCode&&(
+            <div className="codecard">
+              <div className="codelbl">📋 Ton code profil</div>
+              <div className="codeval">{profileCode}</div>
+              <div className="codesub">Note ce code pour retrouver ton profil sur n'importe quel appareil.</div>
+              <button className="btn bgh" style={{padding:"7px 13px",fontSize:11,width:"auto"}}
+                onClick={()=>{navigator.clipboard?.writeText(profileCode).then(()=>alert("Copié ! 📋")).catch(()=>alert(profileCode));}}>📋 Copier</button>
+            </div>
+          )}
+          <div className="card" style={{marginBottom:11}}>
+            <div style={{fontWeight:700,marginBottom:7,fontSize:13}}>Réinitialiser mes données</div>
+            <button className="btn" style={{background:"var(--rd)",color:"white",padding:"8px 14px",fontSize:11,width:"auto"}}
+              onClick={async()=>{if(confirm("Effacer tout ?")){setHistory([]);setDiagProfile(null);setProfileCode(null);await save("lh",[]);save("ld",null);save("lpcode",null);setUsedIds([]);setErrCount({});}}}>
+              🗑 Réinitialiser
+            </button>
+          </div>
+          <div className="card">
+            <div style={{fontWeight:700,marginBottom:7,fontSize:13}}>Changer de profil</div>
+            <button className="btn bgh" style={{padding:"8px 13px",fontSize:11,width:"auto"}} onClick={()=>setScreen("setup")}>✏️ Modifier</button>
+          </div>
+        </div>
+      )}
+
+      <nav className="bnav">
+        {[["home","Accueil","M3 12L12 3l9 9M5 10v9h5v-5h4v5h5v-9"],
+          ["progres","Progrès","M3 3v18h18M7 16l4-4 4 4 4-6"],
+          ["profil","Profil","M12 12c2.7 0 4-1.3 4-4s-1.3-4-4-4-4 1.3-4 4 1.3 4 4 4zm0 2c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"]
+        ].map(([id,label,path])=>(
+          <button key={id} className={`ni${tab===id?" on":""}`} onClick={()=>setTab(id)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d={path}/></svg>
+            {label}
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════
+// SETUP
+// ══════════════════════════════════════════════════════════════
+function SetupScreen({onDone}){
+  const [name,setName]=useState(""),  [avatar,setAvatar]=useState("🦁");
+  const AVS=["🦁","🐯","🦊","🐉","🚀","⚡","🔥","🌟","💎","🎯","🏄","🌴"];
+  return(
+    <div className="app"><style>{css}</style>
+      <div className="setup">
+        <div className="sc2">
+          <div style={{fontSize:46,textAlign:"center",marginBottom:9}}>🌺</div>
+          <div style={{fontFamily:"var(--fd)",fontSize:24,fontWeight:800,textAlign:"center",marginBottom:5}}>
+            Brevet<span style={{color:"var(--lea)"}}>Léa</span>
+          </div>
+          <div style={{color:"var(--mu)",fontSize:12,textAlign:"center",marginBottom:22}}>Léa va d'abord apprendre à te connaître !</div>
+          <div style={{marginBottom:14}}>
+            <label style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:"var(--mu)"}}>Ton prénom</label>
+            <input className="inp" placeholder="ex: Nawal" value={name} onChange={e=>setName(e.target.value)} maxLength={20}/>
+          </div>
+          <div style={{marginBottom:22}}>
+            <label style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:"var(--mu)"}}>Ton avatar</label>
+            <div className="avs">{AVS.map(a=><span key={a} className={`av${avatar===a?" sel":""}`} onClick={()=>setAvatar(a)}>{a}</span>)}</div>
+          </div>
+          <button className="btn blea" disabled={!name.trim()}
+            onClick={()=>onDone({name:name.trim(),avatar,since:new Date().toLocaleDateString("fr-FR")})}>
+            Rencontrer Léa 🌺
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+root.render(React.createElement(App));
+</script>
+</body>
+</html>
