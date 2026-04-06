@@ -313,8 +313,9 @@ function startTimer(){
 // ACTIONS
 // ═══════════════════════════
 function leaSay(msg,d=350){
-  setState({leaTyping:true});
-  setTimeout(()=>setState({leaTyping:false,leaMsg:msg}),d+Math.min(msg.length*14,1000));
+  S.leaTyping=true;
+  render();
+  setTimeout(()=>{S.leaTyping=false;S.leaMsg=msg;render();},d+Math.min(msg.length*14,1000));
 }
 
 function startDiag(){
@@ -343,17 +344,18 @@ function doAnswer(idx){
   const q=S.qs[S.qi];
   const ok=idx===q.a,isPiege=idx===q.p;
   const newAns=[...S.ans,{qid:q.id,type:q.t,ch:q.ch,ok,time:elapsed,piege:isPiege,idx,q}];
-  let showR=false,showC=false;
+  let showR=false,showC=false,leaMsg="";
   if(!ok){
-    const ec={...S.errCnt,[q.ch]:(S.errCnt[q.ch]||0)+1};
-    setState({errCnt:ec});
+    const newErrCnt=(S.errCnt[q.ch]||0)+1;
+    S.errCnt={...S.errCnt,[q.ch]:newErrCnt};
     showC=true;
-    if((S.errCnt[q.ch]||0)>=1){showR=true;leaSay(rnd(MSGS.ko_cours),300);}
-    else leaSay(idx===-1?rnd(MSGS.skip):isPiege?rnd(MSGS.ko_piege):rnd(MSGS.ko),300);
+    if(newErrCnt>=2){showR=true;leaMsg=rnd(MSGS.ko_cours);}
+    else leaMsg=idx===-1?rnd(MSGS.skip):isPiege?rnd(MSGS.ko_piege):rnd(MSGS.ko);
   }else{
-    leaSay(elapsed<20?rnd(MSGS.ok_fast):elapsed>50?rnd(MSGS.ok_slow):"Bien ! T'as trouvé 👍",300);
+    leaMsg=elapsed<20?rnd(MSGS.ok_fast):elapsed>50?rnd(MSGS.ok_slow):"Bien ! T'as trouvé 👍";
   }
   setState({chosen:idx,showN:true,showC,showR,ans:newAns});
+  leaSay(leaMsg,300);
 }
 
 function nextQ(){
@@ -403,6 +405,7 @@ function h(tag,attrs,...children){
     if(k==="class")el.className=v;
     else if(k.startsWith("on"))el.addEventListener(k.slice(2).toLowerCase(),v);
     else if(k==="style"&&typeof v==="object")Object.assign(el.style,v);
+    else if(typeof v==="boolean"){if(v)el.setAttribute(k,"");else el.removeAttribute(k);}
     else el.setAttribute(k,v);
   });
   children.flat().forEach(c=>{
